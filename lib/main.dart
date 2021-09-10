@@ -87,24 +87,34 @@ class BorderBox extends StatelessWidget {
 class OurPlants extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
+    // final ThemeData themeData = Theme.of(context);
 
-    return Container(
-        child: Row(
+    return Column(
       children: [
+        SizedBox(
+          height: 30,
+        ),
         Expanded(
-            child: ListView(
-          // scrollDirection: Axis.horizontal,
-          children: [
-            ...plantsList.map((pl) => Container(
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      // color: Colors.white,
-                      borderRadius: BorderRadius.circular(15)),
-                )),
-          ],
-        )),
+            child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: plantsList.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: Container(
+                      height: 350,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.grey,
+                        image: DecorationImage(
+                            image: NetworkImage(plantsList[index].plantImg)),
+                      ),
+                    ),
+                  );
+                })),
       ],
-    ));
+    );
   }
 }
+/*
+ ...plantsList.map((pl) => Card(child: Image.network(pl.plantImg)))
+*/
