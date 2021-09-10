@@ -6,7 +6,7 @@ const COLOR_GREY = Color.fromRGBO(141, 141, 141, 1.0);
 const COLOR_WHITE = Colors.white;
 const COLOR_DARK_BLUE = Color.fromRGBO(20, 25, 45, 1.0);
 
-const COLOR_GREEN = Color.fromRGBO(96, 240, 14, 2.5);
+const COLOR_GREEN = Color.fromRGBO(96, 240, 14, 0);
 
 const TextTheme TEXT_THEME_DEFAULT = TextTheme(
     headline1: TextStyle(
