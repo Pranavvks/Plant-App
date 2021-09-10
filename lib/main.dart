@@ -89,28 +89,35 @@ class OurPlants extends StatelessWidget {
   Widget build(BuildContext context) {
     // final ThemeData themeData = Theme.of(context);
 
-    return Column(
+    return Row(
       children: [
         SizedBox(
           height: 30,
         ),
         Expanded(
-            child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: plantsList.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Container(
-                      height: 350,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Colors.grey,
-                        image: DecorationImage(
-                            image: NetworkImage(plantsList[index].plantImg)),
+          child: PageView.builder(
+              controller: PageController(viewportFraction: 1.0),
+              itemCount: plantsList.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Container(
+                  width: 200,
+                  child: Align(
+                    child: Card(
+                      child: Container(
+                        height: 400,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.blueGrey,
+                          image: DecorationImage(
+                              image: NetworkImage(plantsList[index].plantImg)),
+                        ),
                       ),
                     ),
-                  );
-                })),
+                  ),
+                );
+              }),
+        ),
       ],
     );
   }
