@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import '../utils/pricebox.dart';
 import './dummy_data.dart';
-
+import '../utils/textbox.dart';
 import 'dart:ui';
 import '../utils/constants.dart';
 
@@ -58,38 +59,12 @@ class CustomAppBar extends StatelessWidget {
   }
 }
 
-class BorderBox extends StatelessWidget {
-  final Widget child;
-  final EdgeInsets padding;
-  final double width, height;
-
-  const BorderBox(
-      {@required this.child, this.padding, this.width, this.height});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: COLOR_WHITE,
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: COLOR_GREY.withAlpha(40), width: 2),
-      ),
-      padding: padding ?? const EdgeInsets.all(8.0),
-      child: Center(
-        child: child,
-      ),
-    );
-  }
-}
-
 class OurPlants extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final ThemeData themeData = Theme.of(context);
+    final ThemeData themeData = Theme.of(context);
 
-    return Row(
+    return Stack(
       children: [
         SizedBox(
           height: 30,
@@ -108,9 +83,43 @@ class OurPlants extends StatelessWidget {
                         height: 400,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color: Colors.blueGrey,
+                          color: Colors.lightBlue[50],
                           image: DecorationImage(
                               image: NetworkImage(plantsList[index].plantImg)),
+                        ),
+                        child: Stack(
+                          children: [
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: PriceBox(
+                                  child: Text(
+                                    plantsList[index].price.toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  width: 90,
+                                  height: 90),
+                            ),
+                            Container(
+                              margin: EdgeInsetsDirectional.only(
+                                top: 320,
+                              ),
+                              alignment: Alignment.centerLeft,
+                              child: TextBox(
+                                child: Text(
+                                  plantsList[index].plantName,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w900),
+                                ),
+                                width: 220,
+                                height: 70,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),
@@ -124,4 +133,8 @@ class OurPlants extends StatelessWidget {
 }
 /*
  ...plantsList.map((pl) => Card(child: Image.network(pl.plantImg)))
+
+  child: Container(
+                          
+                        )
 */
