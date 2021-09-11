@@ -69,7 +69,8 @@ class OurPlants extends StatelessWidget {
         SizedBox(
           height: 30,
         ),
-        Expanded(
+        Container(
+          margin: EdgeInsetsDirectional.only(top: 10, bottom: 280),
           child: PageView.builder(
               controller: PageController(viewportFraction: 1.0),
               itemCount: plantsList.length,
@@ -90,21 +91,22 @@ class OurPlants extends StatelessWidget {
                         child: Stack(
                           children: [
                             Container(
+                              margin: EdgeInsetsDirectional.only(top: 3),
                               alignment: Alignment.topRight,
                               child: PriceBox(
                                   child: Text(
                                     plantsList[index].price.toString(),
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w700),
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w900),
                                   ),
                                   width: 90,
                                   height: 90),
                             ),
                             Container(
-                              margin: EdgeInsetsDirectional.only(
-                                top: 320,
-                              ),
+                              margin:
+                                  EdgeInsetsDirectional.only(top: 320, end: 30),
                               alignment: Alignment.centerLeft,
                               child: TextBox(
                                 child: Text(
@@ -115,10 +117,10 @@ class OurPlants extends StatelessWidget {
                                       fontSize: 30,
                                       fontWeight: FontWeight.w900),
                                 ),
-                                width: 220,
-                                height: 70,
+                                width: 240,
+                                height: 90,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -127,14 +129,39 @@ class OurPlants extends StatelessWidget {
                 );
               }),
         ),
+        Expanded(
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsetsDirectional.only(top: 440, end: 30),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.favorite,
+                      color: Colors.green,
+                    ),
+                    Text(
+                      " 496",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
+              // Container(
+              //   margin: EdgeInsetsDirectional.only(top: 10),
+              //   child: Text("hello"),
+              // )
+            ],
+          ),
+        ),
       ],
     );
   }
 }
 /*
  ...plantsList.map((pl) => Card(child: Image.network(pl.plantImg)))
-
-  child: Container(
-                          
-                        )
+margin: EdgeInsetsDirectional.only(top: 10, bottom: 280),
 */
