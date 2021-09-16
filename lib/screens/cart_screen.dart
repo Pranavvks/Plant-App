@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:ginky_plants/dummy_data.dart';
-import 'package:ginky_plants/models/plant.dart';
+import 'package:ginky_plants/providers/plant.dart';
+import 'package:ginky_plants/providers/plants.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
-  final int id;
+  // final int id;
 
-  CartScreen(this.id);
+  // CartScreen(this.id);
+
+  static const routeName = '/cart-screen';
 
   @override
   Widget build(BuildContext context) {
+    final routeArgs =
+        ModalRoute.of(context).settings.arguments as Map<String, int>;
+    final id = routeArgs['id'];
+    final PlantsData = Provider.of<Plants>(context);
+    final plants = PlantsData.items;
+
     return Scaffold(
         body: Container(
       margin: EdgeInsets.only(top: 30),
@@ -32,9 +42,9 @@ class CartScreen extends StatelessWidget {
             height: 70,
             child: Card(
               child: ListTile(
-                leading: Image.network(plantsList[id].plantImg),
+                leading: Image.network(plants[id].plantImg),
                 title: Text(
-                  plantsList[id].plantName,
+                  plants[id].plantName,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 22,
@@ -50,68 +60,3 @@ class CartScreen extends StatelessWidget {
     ));
   }
 }
-/*
-return SizedBox(
-    height: 210,
-    child: Card(
-      child: Column(
-        children: [
-          ListTile(
-            title: const Text(
-              '1625 Main Street',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-            subtitle: const Text('My City, CA 99984'),
-            leading: Icon(
-              Icons.restaurant_menu,
-              color: Colors.blue[500],
-            ),
-          ),
-          const Divider(),
-          ListTile(
-            title: const Text(
-              '(408) 555-1212',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-            leading: Icon(
-              Icons.contact_phone,
-              color: Colors.blue[500],
-            ),
-          ),
-          ListTile(
-            title: const Text('costa@example.com'),
-            leading: Icon(
-              Icons.contact_mail,
-              color: Colors.blue[500],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-
-child: Container(
-              
-              width: 300,
-              height: 400,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-              ),
-              child: Card(
-                child: Column(
-                  children: [
-                    Text(plantsList[id].plantName),
-                    Image.network(plantsList[id].plantImg),
-                  ],
-                ),
-              ),
-            ),
-
-
-*/

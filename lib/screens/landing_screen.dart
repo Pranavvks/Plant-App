@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ginky_plants/dummy_data.dart';
+import 'package:ginky_plants/providers/plants.dart';
 import 'package:ginky_plants/screens/cart_screen.dart';
+import 'package:provider/provider.dart';
 import '../utils/pricebox.dart';
 import '../utils/textbox.dart';
 import '../utils/buynowbox.dart';
@@ -8,6 +9,9 @@ import '../utils/buynowbox.dart';
 class OurPlants extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final plantsData = Provider.of<Plants>(context, listen: false);
+    final plants = plantsData.items;
+
     final ThemeData themeData = Theme.of(context);
     int x;
     void acceptIndex(int index) {
@@ -15,10 +19,9 @@ class OurPlants extends StatelessWidget {
     }
 
     void AddToCart(BuildContext context, int pageno) {
-      print(pageno);
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-        return CartScreen(x);
-      }));
+      Navigator.of(context).pushNamed(CartScreen.routeName, arguments: {
+        'id': pageno,
+      });
     }
 
     return Stack(
@@ -32,7 +35,7 @@ class OurPlants extends StatelessWidget {
               controller: PageController(
                 viewportFraction: 1.0,
               ),
-              itemCount: plantsList.length,
+              itemCount: plants.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 acceptIndex(index);
@@ -46,7 +49,7 @@ class OurPlants extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                           color: Colors.lightBlue[50],
                           image: DecorationImage(
-                              image: NetworkImage(plantsList[index].plantImg)),
+                              image: NetworkImage(plants[index].plantImg)),
                         ),
                         child: Stack(
                           children: [
@@ -55,7 +58,7 @@ class OurPlants extends StatelessWidget {
                               alignment: Alignment.topRight,
                               child: PriceBox(
                                   child: Text(
-                                    plantsList[index].price.toString(),
+                                    plants[index].price.toString(),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 14,
@@ -70,7 +73,7 @@ class OurPlants extends StatelessWidget {
                               alignment: Alignment.centerLeft,
                               child: TextBox(
                                 child: Text(
-                                  plantsList[index].plantName,
+                                  plants[index].plantName,
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       color: Colors.white,
