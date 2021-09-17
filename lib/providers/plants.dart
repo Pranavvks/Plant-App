@@ -4,16 +4,19 @@ import './plant.dart';
 class Plants with ChangeNotifier {
   List<Plant> _items = [
     Plant(
+        plantid: "1",
         plantName: 'Morning Glory',
         plantImg:
             'https://raw.githubusercontent.com/Ivaskuu/plantly/master/res/plant1.png',
         price: 45),
     Plant(
+        plantid: "2",
         plantName: 'Sunshine Glory',
         plantImg:
             'https://github.com/Ivaskuu/plantly/blob/master/res/plant2.png?raw=true',
         price: 15),
     Plant(
+        plantid: "3",
         plantName: 'New Day Hope',
         plantImg:
             'https://github.com/Ivaskuu/plantly/blob/master/res/plant3.png?raw=true',

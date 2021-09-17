@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ginky_plants/dummy_data.dart';
-import 'package:ginky_plants/providers/plant.dart';
-import 'package:ginky_plants/providers/plants.dart';
+import '../providers/cart.dart' show Cart;
+import '../widgets/cart_item.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
@@ -11,13 +10,9 @@ class CartScreen extends StatelessWidget {
 
   static const routeName = '/cart-screen';
 
-  @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, int>;
-    final id = routeArgs['id'];
-    final PlantsData = Provider.of<Plants>(context);
-    final plants = PlantsData.items;
+    final cart = Provider.of<Cart>(context);
+    // final cart = CartData.items;
 
     return Scaffold(
         body: Container(
@@ -40,21 +35,20 @@ class CartScreen extends StatelessWidget {
 
           SizedBox(
             height: 70,
-            child: Card(
-              child: ListTile(
-                leading: Image.network(plants[id].plantImg),
-                title: Text(
-                  plants[id].plantName,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                trailing: Icon(Icons.delete),
-              ),
-            ),
           ),
+          Expanded(
+              child: ListView.builder(
+            itemCount: cart.items.length,
+            itemBuilder: (context, index) => CartItem(
+                cart.items.values.toList()[index].id,
+                cart.items.values.toList()[index].price,
+                cart.items.values.toList()[index].quantity,
+                cart.items.values.toList()[index].title,
+                cart.items.values.toList()[index].imageurl),
+            // We use expanded widget in the column so that our item takes as much space that is left in the
+            // column
+          ))
+          // CartData.addItem(productId, price, title)
         ],
       ),
     ));

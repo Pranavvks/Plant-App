@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ginky_plants/providers/cart.dart';
 import 'package:ginky_plants/providers/plants.dart';
 import 'package:ginky_plants/screens/cart_screen.dart';
 import 'package:provider/provider.dart';
@@ -6,11 +7,18 @@ import '../utils/pricebox.dart';
 import '../utils/textbox.dart';
 import '../utils/buynowbox.dart';
 
-class OurPlants extends StatelessWidget {
+class OurPlants extends StatefulWidget {
+  @override
+  _OurPlantsState createState() => _OurPlantsState();
+}
+
+class _OurPlantsState extends State<OurPlants> {
   @override
   Widget build(BuildContext context) {
     final plantsData = Provider.of<Plants>(context, listen: false);
     final plants = plantsData.items;
+
+    final cart = Provider.of<Cart>(context);
 
     final ThemeData themeData = Theme.of(context);
     int x;
@@ -18,10 +26,8 @@ class OurPlants extends StatelessWidget {
       x = index;
     }
 
-    void AddToCart(BuildContext context, int pageno) {
-      Navigator.of(context).pushNamed(CartScreen.routeName, arguments: {
-        'id': pageno,
-      });
+    void AddToCart(BuildContext context) {
+      Navigator.of(context).pushNamed(CartScreen.routeName);
     }
 
     return Stack(
@@ -129,7 +135,11 @@ class OurPlants extends StatelessWidget {
               Expanded(
                 child: InkWell(
                   splashColor: themeData.primaryColor,
-                  onTap: () => AddToCart(context, x),
+                  onTap: () {
+                    cart.addItem(plants[x].plantid, plants[x].price,
+                        plants[x].plantName, plants[x].plantImg);
+                    AddToCart(context);
+                  },
                   child: BuyNowBox(
                       child: Center(
                         child: Text("Add to Cart",
